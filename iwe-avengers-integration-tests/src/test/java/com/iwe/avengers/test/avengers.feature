@@ -9,3 +9,39 @@ Given path 'avengers','aaaa-bbb-cccc-dddd'
 When method get
 Then status 200
 And match response == {id: '#string', name: 'Iron Man', secretIdentity: 'Tony Stark' }
+
+Scenario: Create Avenger
+
+Given path 'avengers'
+And request {name: 'Iron Man', secretIdentity: 'Tony Stark'}
+When method post
+Then status 201
+And match response == {id: '#string', name: 'Iron Man', secretIdentity: 'Tony Stark' }
+
+Scenario: Must return 400 for invalid creation payload
+
+Given path 'avengers'
+And request {secretIdentity: 'Tony Stark'}
+When method post
+Then status 400
+
+Scenario: Delete Avenger
+
+Given path 'avengers','aaaa-bbb-cccc-dddd'
+When method delete
+Then status 204
+
+Scenario: Put Avenger
+
+Given path 'avengers','aaaa-bbb-cccc-dddd'
+And request {name: 'Iron Man1', secretIdentity: 'Tony Stark1'}
+When method put
+Then status 200
+And match $ == {id: '#string', name: 'Iron Man', secretIdentity: 'Tony Stark' }
+
+Scenario: Put Avenger return 400
+
+Given path 'avengers','aaaa-bbb-cccc-dddd'
+And request {secretIdentity: 'Tony Stark1'}
+When method put
+Then status 400

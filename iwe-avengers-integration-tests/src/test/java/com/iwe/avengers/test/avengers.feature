@@ -31,23 +31,36 @@ And request {secretIdentity: 'Tony Stark'}
 When method post
 Then status 400
 
+Scenario: Delete Avenger return 404
+
+Given path 'avengers','not-found-id'
+When method delete
+Then status 404
+
 Scenario: Delete Avenger
 
-Given path 'avengers','aaaa-bbb-cccc-dddd'
+Given path 'avengers','aaaa-bbbb-cccc-dddd'
 When method delete
 Then status 204
 
 Scenario: Put Avenger
 
-Given path 'avengers','aaaa-bbb-cccc-dddd'
-And request {name: 'Iron Man1', secretIdentity: 'Tony Stark1'}
+Given path 'avengers','aaaa-bbbb-cccc-dddd'
+And request {name: 'Iron Man - Hulkbuster', secretIdentity: 'Tony Stark'}
 When method put
 Then status 200
-And match $ == {id: '#string', name: 'Iron Man', secretIdentity: 'Tony Stark' }
+And match $ == {id: '#string', name: 'Iron Man - Hulkbuster', secretIdentity: 'Tony Stark' }
 
 Scenario: Put Avenger return 400
 
-Given path 'avengers','aaaa-bbb-cccc-dddd'
-And request {secretIdentity: 'Tony Stark1'}
+Given path 'avengers','aaaa-bbbb-cccc-dddd'
+And request {secretIdentity: 'Tony Stark'}
 When method put
 Then status 400
+
+Scenario: Put Avenger return 404
+
+Given path 'avengers','not-found-id'
+And request {name: 'Iron Man - Hulkbuster', secretIdentity: 'Tony Stark1'}
+When method put
+Then status 404

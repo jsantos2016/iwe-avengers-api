@@ -24,4 +24,12 @@ public class AvengerDAO {
 		newAvenger.setId( new Random().nextInt(100) + "abcd" );
 		return newAvenger;
 	}
+	
+	public void delete( Avenger avenger ){
+		
+	}
+	
+	public Avenger update( Avenger newAvenger ){
+		return newAvenger;
+	}
 }

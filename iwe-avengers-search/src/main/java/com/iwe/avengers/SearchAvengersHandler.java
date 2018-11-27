@@ -29,8 +29,7 @@ public class SearchAvengersHandler implements RequestHandler<Avenger, HandlerRes
 			return HandlerResponse.builder().setObjectBody( avengerRetieved.get() ).build();
 		}
 
-		return null;
-		//throw new AvengerNotFoundException( "[NotFound] - Avenger id: " );
+		throw new AvengerNotFoundException( "[NotFound] - Avenger id: " + id );
 
 	}
 }

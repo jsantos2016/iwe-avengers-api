@@ -18,15 +18,15 @@ public class TokenGenerator {
 		
 		String authresult = null;
 
-		final String clientId = "494kpkmh3mk6rpp38c991l608m";
-		final String userPoolId = "us-east-1_IjEeQEsVj";
+		final String clientId = "2i4btfqj9bpr671tu6tgvv7o0a";
+		final String userPoolId = "us-east-1_BuM9YHbVe";
 
 		final AuthenticationHelper auth = new AuthenticationHelper(userPoolId, clientId);
 
 		final InitiateAuthRequest initiateAuthRequest = new InitiateAuthRequest();
 		initiateAuthRequest.setAuthFlow(AuthFlowType.USER_SRP_AUTH);
 		initiateAuthRequest.setClientId(clientId);
-		initiateAuthRequest.addAuthParametersEntry("USERNAME", "roger");
+		initiateAuthRequest.addAuthParametersEntry("USERNAME", "jsantos");
 
 		//O conceito de algoritmos de chave pública é que você tem duas chaves, um público que está disponível para todos e um que é privado e conhecido apenas por você
 		// nesse passo estamos passando uma chave pública gerada a partir de calculos e criptografia
@@ -41,7 +41,7 @@ public class TokenGenerator {
 		if (ChallengeNameType.PASSWORD_VERIFIER.toString().equals(initiateAuthResult.getChallengeName())) {
 			// Nesse passo estamos respondendo ao desafio do PASSWORD, e a senha será totalmente criptografada para o envio a AWS
 			// Essa criptografia é realizada junto com um outro Hash SRP que é devolvido pela AWS como retorno da requisição
-			RespondToAuthChallengeRequest challengeRequest = auth.userSrpAuthRequest(initiateAuthResult, "12345678");
+			RespondToAuthChallengeRequest challengeRequest = auth.userSrpAuthRequest(initiateAuthResult, "123456789");
 			RespondToAuthChallengeResult result = cognitoIdentityProvider.respondToAuthChallenge(challengeRequest);
 			authresult = result.getAuthenticationResult().getIdToken();
 		}
